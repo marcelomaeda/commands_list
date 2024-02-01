@@ -1,0 +1,200 @@
+https://docs.docker.com/engine/reference/commandline/docker/
+
+docker run ? This command is used to start a new Docker container from an image.
+docker ps ? This command is used to list all the running Docker containers.
+docker stop ? This command is used to stop a running container.
+docker rm ? This command is used to remove a Docker container.
+docker images ? This command is used to list all the Docker images that are currently available on your system.
+docker pull ? This command is used to download a Docker image from a registry.
+docker exec ? This command is used to execute a command in a running container.
+docker-compose ? This command is used to manage multi-container Docker applications.
+
+
+Docker version
+We usually start by finding the installed version of docker that we are working on. Here is how to find it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker --version
+Docker version 18.09.6, build 481bc77
+Docker search 
+The ?docker search? command searches for specific images through the Docker hub. This command returns the specific information, including image name, description, automated, official stars, etc. Here is how to use it ? 
+
+docker search MySQL
+You can use the Docker Hub website to search through the GUI-based option.
+
+Docker pull
+As the name suggests, this command pulls a specific image from the Docker Hub. All you have to do is use the command ?docker pull? along with the name of the image. Here is an example of pulling an image without using the tag. 
+
+docker pull --platform Linux/x86_64 MySQL
+Here is an example that demonstrates how to pull an Apache HTTP server image from the Docker repository using the tag -
+Using default tag: latest
+latest: Pulling from library/httpd
+f5d23c7fed46: Pull complete
+b083c5fd185b: Pull complete
+bf5100a89e78: Pull complete
+98f47fcaa52f: Pull complete
+622a9dd8cfed: Pull complete
+Digest: sha256:8bd76c050761610773b484e411612a31f299dbf7273763103edbda82acd73642
+Status: Downloaded newer image for httpd: latest
+greatlearning@greatlearning:/home/greatlearning$
+The tags are used to identify the images inside the Docker hub. If you do not specify a tag, it will use the ?: latest? tag by default. 
+
+We can use the command ?-all-tags? to pull all the images from the repository for multiple images. 
+
+Docker run 
+This command is used to create a container from an image. Here is how to do it ?
+
+docker run --env MYSQL_ROOT_PASSWORD=my-secret-pw --detach mysql
+The ??detach? option runs the container, and the ??env? option is used to set the mandatory variable. If you do not use the ??name? option, the docker will randomly assign a name to the container.
+
+Docker ps
+This command is used to list all the running containers in the background. Here is how to do it ?
+
+docker ps --all
+Docker stop 
+The ?docker stop? command stops a container using the container name or its id. Here is how to do it ?
+
+docker stop f8c52bedeecc
+Docker restart 
+This command is used to restart the stopped container. It is recommended to use this after rebooting the system. Here is how to do it ?
+
+greatlearning@greatlearning:/home/greatlearning$
+docker restart f8c52bedeecc
+Docker kill
+This command is used to stop the container immediately by killing its execution. While the ?docker stop? command helps shut down the container in its own time, the ?docker kill? command stops it at once. Here is to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$
+docker kill 09ca6feb6efc
+To check whether the container is stopped or killed, use the following command -
+greatlearning@greatlearning:/home/greatlearning$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+Docker exec 
+This command is used to access the container that is running. Here is how to use it ?
+
+docker exec -it test_db bash
+mysql -uroot -pmy-secret-pw
+SHOW DATABASES;
+You have to either provide the name or the id of the container, which is ?test_db? in this case. The ?-i? and ?-t? options are used to access the interactive mode. 
+
+Docker login
+This command helps you to log into your docker hub. As you try to log in, you will be asked to give your docker hub credentials. 
+
+greatlearning@greatlearning:/home/greatlearning$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. Suppose you don?t have a Docker ID, head over to https://hub.docker.com to create one.
+Username: greatlearning
+Password:
+Configure a credential helper to remove this warning. See: https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+Login Succeeded
+Docker commit 
+This command is used to create or save an image of the edited container on the local system. 
+
+Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$
+docker commit 09ca6feb6efc greatlearning/httpd_image
+sha256:d1933506f4c1686ab1a1ec601b1a03a17b41decbc21d8acd893db090a09bb31c
+Here, ?greatlearning? is the username and ?httpd_image? is the image name of the edited container. 
+Docker push 
+This command helps push or upload a docker image on the repository or the docker hub. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker push greatlearning/httpd_image
+The push refers to the repository [docker.io/greatlearning/httpd_image]
+734d9104a6a2: Pushed
+635721fc6973: Mounted from library/httpd
+bea448567d6c: Mounted from library/httpd
+bfaa5f9c3b51: Mounted from library/httpd
+9d542ac296cc: Mounted from library/httpd
+d8a33133e477: Mounted from library/httpd
+latest: 
+digest: sha256:3904662761df9d76ef04ddfa5cfab764b85e3eedaf10071cfbe2bf77254679ac size: 1574
+Docker network 
+The ?docker network? command is used to know the details of the list of networks in the cluster. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+85083e755f04        bridge              bridge              local
+f51d1f2379e0        host                host                local
+5e5d9a154c00        none                null                local
+Apart from this, you can also use the following docker network commands to manage networks -
+Connect  - to connect a container to a network
+Disconnect - to disconnect a container from a network
+Create  - to create a network
+Ls - to list all networks
+Inspect - to display detailed information on one or more networks
+prune - to remove all unused networks
+rm - to remove one or more networks
+Docker history 
+This command is used to check the history of a docker image. The image name has to be mentioned while using the command. Here is how to use it -
+greatlearning@greatlearning:/home/greatlearning$ docker history httpd
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+ee39f68eb241        3 days ago          /bin/sh -c #(nop)  CMD ["httpd-foreground"]     0B
+<missing>           3 days ago          /bin/sh -c #(nop)  EXPOSE 80                    0B
+<missing>           3 days ago          /bin/sh -c #(nop) COPY file:c432ff61c4993ecd?   138B
+<missing>           2 days ago          /bin/sh -c set -eux;   savedAptMark="$(apt-m?   49.1MB
+<missing>           2 days ago          /bin/sh -c #(nop)  ENV HTTPD_PATCHES=           0B
+<missing>           2 days ago          /bin/sh -c #(nop)  ENV HTTPD_SHA256=b4ca9d05?   0B
+<missing>           2 days ago          /bin/sh -c #(nop)  ENV HTTPD_VERSION=2.4.39     0B
+<missing>           2 days ago          /bin/sh -c set -eux;  apt-get update;  apt-g?   35.4MB
+<missing>           5 days ago          /bin/sh -c #(nop) WORKDIR /usr/local/apache2    0B
+<missing>           5 days ago          /bin/sh -c mkdir -p "$HTTPD_PREFIX"  && chow?   0B
+<missing>           5 days ago          /bin/sh -c #(nop)  ENV PATH=/usr/local/apach?   0B
+<missing>           5 days ago          /bin/sh -c #(nop)  ENV HTTPD_PREFIX=/usr/loc?   0B
+<missing>           4 days ago          /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>           4 days ago          /bin/sh -c #(nop) ADD file:71ac26257198ecf6a?   69.2MB
+Docker rmi 
+This command is used to free up some disk space. The image id is used to remove the image while using this command.
+
+docker rmi eb0e825dc3cf
+Docker ps -a
+This command is used to know the details of all the running, stopped, or exited containers. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker ps -a
+CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS                     PORTS                                                                                                                                NAMES
+09ca6feb6efc        httpd                            "httpd-foreground"       51 seconds ago      Up 49 seconds              80/tcp                                                                                                                               sane_trell
+2f6fb3381078        sequenceiq/hadoop-docker:2.7.0   "/etc/bootstrap.sh -d"   2 weeks ago         Exited (137) 9 days ago                                                                                                                                         better_naman
+9f397feb3a46        sequenceiq/hadoop-docker:2.7.0   "/etc/bootstrap.sh -?"   2 weeks ago         Exited (255) 2 weeks ago   2122/tcp, 8030-8033/tcp, 8040/tcp, 8042/tcp, 8088/tcp, 19888/tcp, 49707/tcp, 50010/tcp, 50020/tcp, 50070/tcp, 50075/tcp, 50090/tcp   determined_sarah
+9b6343d3b5a0        hello-world                      "/hello"                 2 weeks ago         Exited (0) 2 weeks ago                                                                                                                                          mega_steven
+Docker copy
+This command copies a file from docker to the local system. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ sudo docker cp 09ca4feb7tfc:/usr/local/apache2/logs/httpd.pid /home/greatlearning/
+[sudo] password for greatlearning:
+In the above example, we used the docker container with id 09ca4feb7tfc to copy the file ?http.pid.? To check whether the file is copied or not, run this command -
+greatlearning@greatlearning:/home/greatlearning$ ls
+Desktop  Documents  example  examples.desktop  httpd.pid  nginx_new.yml  nginx.yml
+Docker logs   
+This command is used to check the logs of all the docker containers with the corresponding contained id mentioned in the command. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker logs 09ca6feb6efc
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+[Mon Jul 16 14:01:55.400472 2019] [mpm_event:notice] [pid 1:tid 140299791516800] AH00489: Apache/2.4.39 (Unix) configured -- resuming normal operations
+[Mon Jul 16 14:01:55.400615 2019] [core:notice] [pid 1:tid 140299791516800] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Jul 16 14:08:36.798229 2019] [mpm_event:notice] [pid 1:tid 140299791516800] AH00491: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+[Mon Jul 15 14:08:38.259870 2019] [mpm_event:notice] [pid 1:tid 139974087980160] AH00489: Apache/2.4.39 (Unix) configured -- resuming normal operations
+[Mon Jul 15 14:08:38.260007 2019] [core:notice] [pid 1:tid 139974087980160] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Jul 15 14:09:01.540647 2019] [mpm_event:notice] [pid 1:tid 139974087980160] AH00491: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+[Mon Jul 16 14:10:43.782606 2019] [mpm_event:notice] [pid 1:tid 140281554879616] AH00489: Apache/2.4.39 (Unix) configured -- resuming normal operations
+[Mon Jul 16 14:10:43.782737 2019] [core:notice] [pid 1:tid 140281554879616] AH00094: Command line: 'httpd -D FOREGROUND'
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server?s fully qualified domain name, using 172.17.0.2. Set the ?ServerName? directive globally to suppress this message
+[Mon Jul 16 14:14:08.270906 2019] [mpm_event:notice] [pid 1:tid 140595254346880] AH00489: Apache/2.4.39 (Unix) configured -- resuming normal operations
+[Mon Jul 16 14:14:08.272628 2019] [core:notice] [pid 1:tid 140595254346880] AH00094: Command line: 'httpd -D FOREGROUND'
+Docker volume 
+This command creates a volume so that the docker container can use it to store data. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker volume create
+7e7bc886f69bb24dbdbf19402e31102a25db91bb29c56cca3ea8b0c611fd9ad0
+To check whether this command created the volume or not, run the following command -
+greatlearning@greatlearning:/home/greatlearning$ docker volume ls
+DRIVER              VOLUME NAME
+local               7e7bc886f69bb24dbdbf19402e31102a25db91bb29c56cca3ea8b0c611fd9ad0
+Docker logout 
+This command will log you out of the docker hub. Here is how to use it ?
+
+greatlearning@greatlearning:/home/greatlearning$ docker logout
+Removing login credentials for https://index.docker.io/v1/

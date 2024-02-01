@@ -1,0 +1,117 @@
+https://docs.npmjs.com/cli/v6/commands/npm
+
+install
+
+This command is used to install the npm package and the other packages which the particular package depends on. It will install in the local node_modules folder.
+
+npm install <packagename>
+
+There's a shorthand for installing the new packages.
+
+npm i <packagename>
+
+uninstall
+
+This command does the exact opposite of install. It will uninstall the package completely which is already exist in the node_modules folder. If the package mention is not present package.json list or node_modules folder, it won't do anything.
+
+npm uninstall <packagename>
+
+Shorthand for uninstalling the new packages.
+
+npm un <packagename>
+
+update
+
+This command updates the current package to the latest version and if no package name has been specified then it will update all packages. If some package is missing, it will check and update those too.
+
+npm update <packagename> or npm update
+
+Shorthand for updating the packages.
+
+npm up <packagename>
+
+deprecate
+
+This command will update the npm registry entry for a package by providing a deprecation warning or message to all who attempt to install it.
+
+npm deprecate <pkg>[@<version range>] <message>
+
+Note
+
+To un-deprecate a particular package, specify an empty string ("") for the message argument. Note that you must use double quotes with no space between them.
+
+npm deprecate <pkg>[@<version range>] ""
+
+doctor
+
+It checks our environment so that our npm installation has what it needs to manage our JavaScript packages. Before installing npm will check for some basic requirements which has to be met by the packages.
+
+Node.js and git must be executable by npm.
+Make sure the npm registry, registry.npmjs.com, or another service that uses the registry API is available.
+Directories that uses npm, node_modules (both locally and globally), exist and can be written by the current user.
+npm doctor
+
+list
+
+This command will print all the packages and their versions that are installed, as well as their dependencies in a tree structure.
+
+npm list
+
+view
+
+This command will prints the data about the package.
+
+npm view <packagename> <versions>
+
+If version is not specified, default version is 'latest'
+
+help
+
+This command helps with the mentioned topic. It shows the appropriate documentation page.
+If the topic does not exist, or if multiple terms are provided, then npm will run the help-search command to find a match. If help-search finds a single subject, then it will run help on that topic, so unique matches are equivalent to specifying a topic name.
+
+npm help <term>
+
+Install/Update the package globally
+
+This command will install or update the package globally in your local system.
+
+npm install -g nodemon
+npm update -g nodemon
+
+-g specifes global. If -g is not specified, package will be installed in local by default which can't be accessed outside the project directory.
+
+Install a package as production/development dependency
+
+This command will install the package which will be available in the specified environment.
+
+npm install -P <packagename> P for Production
+npm install -D <packagename> D for Development
+
+init
+
+This command can convert an empty directory to an npm project by adding package.json file into it.
+
+Also, you can add meta info of the project to the package.json file while creating it.
+
+If you don't have package.json in a directory, and you trigger npm install moduleName at that directory path then module will be installed globally.
+
+npm init or npm init -y
+
+build
+
+npm build and npm run build are entirely different.
+npm run build - This command runs the build field from the package.json scripts field.
+npm build - It is an internal command. If you run it you'll get: npm WARN build npm build called with no arguments. Did you mean to npm run-script build? You can read more on the documentation npm
+
+start
+
+This command runs a predefined command specified in the start property available inside scripts in the package.json file.
+
+npm start
+
+stop
+
+This command runs a predefined command specified in the stop property available inside scripts in the package.json file. Unlike start, there is no default script that will run if the stop property is not defined
+
+npm stop <filename>

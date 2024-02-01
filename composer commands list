@@ -1,0 +1,61 @@
+https://getcomposer.org/doc/03-cli.md
+
+Most used php composer commands that will be helpful for you.
+
+# require
+
+require is the most used command
+
+composer require vendor-name/package-name
+// global purpose | local machine
+composer require global vendor-name/package-name
+~ specific version
+
+composer require "vendor-name/package-name:vX.X.X"
+composer require "vendor-name/package-name:2.1.0"
+# show
+
+show command return all package name from your project
+
+composer show
+# outdated
+
+you can see all outdated package, which package hasn?t the latest version
+
+composer outdated
+# update
+
+update command updates all outdated commands
+
+composer update
+~ update specific package
+
+composer update vendor-name/package-name
+?
+
+~ update global package
+
+composer global update vendor-name/package-name
+# example
+composer global update laravel/installer
+# remove
+
+remove command remove php package from your project
+
+composer remove vendor-name/package-name
+# install
+
+install command first create a composer.lock if not exists composer.lock file. composer lock file contains composer.json all package with version. then install those packages.
+
+composer install
+
+# init
+
+init command create your composer.json schema with some arguments.
+
+composer init
+# dump-autoload
+
+autoload is the most important command. This command adds class, alias, provider etc inside vendor?s composer folder.
+
+composer dump-autoload

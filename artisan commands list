@@ -1,0 +1,29 @@
+Here?s the list of useful Artisan commands you should know about:
+
+php artisan list
+Let?s start with the one that allows you to view the list of all available Artisan commands. It displays a table with names and descriptions of all commands.  
+
+php artisan help
+Another useful command that allows you to see commands? arguments and options. 
+
+To view a help screen, type ?help? before the specific command?s name. For example: ?php artisan help migrate?.
+
+php artisan make:model
+This command creates a new model file in the app/Models directory. The class will have a standard structure and functions.
+
+php artisan make:controller
+Use ?php artisan make:controller? to generate a new controller class in the app/Http/Controllers directory. For instance, ?php artisan make controller UserController?.
+
+With Artisan, you can also create a controller and a model together by typing ?php artisan make:controller UserController -m User?.
+
+php artisan make:migration
+This one creates a new file in the database/migrations directory. (Migrations allow you to adjust your database schema over time in a structured way.)
+
+php artisan migrate
+The command executes all pending migrations, which in turn updates the database schema to match the current status of the application. 
+
+php artisan test 
+It runs all the test cases in the tests/Unit directory, significantly streamlining the testing process by allowing you to run all the tests with a single command.
+
+php artisan db:seed
+Use this command to seed the database with test data. This allows you to test your app without manually generating test data each time.
